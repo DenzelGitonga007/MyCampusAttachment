@@ -11,3 +11,8 @@ class UserChoiceForm(forms.Form):
             label='Select a user',
             widget=forms.Select(attrs={'class': 'form-control'}),
         )
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.fields['user'].empty_label = "Select a user"
+            self.fields['user'].widget.attrs.update({'class': 'form-control'})
