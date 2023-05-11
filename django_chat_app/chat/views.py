@@ -20,4 +20,4 @@ def create_chat(request):
     else:
         form = UserChoiceForm()
     context = {'form': form}
-    return render(request, 'create_chat.html', context)
+    return render(request, 'chat/create_chat.html', context)
