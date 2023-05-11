@@ -1,0 +1,85 @@
+{% extends 'common/base.html' %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block content %}
+<br>
+
+<section class="section-content padding-y" style="min-height: 84vh;">
+    <div class="container d-flex justify-content-center">
+        <div class="card-body">
+            <form method="post" class="form-signup mx-auto" style="width: 400px;">
+                {% csrf_token %}
+                <!-- To handle errors -->
+                {% if form.errors %}
+                <div class="alert alert-danger">
+                    {% for field in form %}
+                    {% for error in field.errors %}
+                        <strong>{{ field.label }}:</strong> {{ error }}
+                    {% endfor %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <h2 class="form-signup-heading">Create Account</h2>
+                <!-- Username -->
+                <div class="form-group">
+                    <label for="id_registration_number" class="form-label">Username</label>
+                    <input type="text" class="form-control" name="username" maxlength="100" placeholder="Enter Username" required="" id="id_username" value="{{ form.username.value|default:'' }}">
+                    
+                    <!-- helptext -->
+                    <span class="helptext">If the username already exists, you will be prompted to select another one</span>
+
+
+                </div>
+                <!-- full_name -->
+                <div class="form-group">
+                  
+                    <label for="id_full_name">Fullname:</label>
+                    <input type="text" class="form-control" name="full_name" maxlength="100" placeholder="Enter your full name" required="" id="id_full_name" value="{{ form.full_name.value|default:'' }}">
+
+                </div>
+                <!-- Email -->
+                <div class="form-group">
+                   
+                    <label for="id_email">Email:</label>
+                    <input type="email" class="form-control" name="email" maxlength="250" placeholder="Enter your email address" required="" id="id_email" value="{{ form.email.value|default:'' }}">
+                </div>
+
+                <!-- Phone_number -->
+                <div class="form-group">
+                   
+                    <label for="id_phone_number">Phone Number:</label>
+                    <input type="tel" class="form-control" name="phone_number" maxlength="250" placeholder="Enter your phone number" required="" id="id_phone_number" value="{{ form.phone_number.value|default:'' }}">
+                </div>
+                <!-- Password -->
+                <div class="form-group">
+                    
+                    <label for="id_password1">Password:</label>
+                    <input type="password" class="form-control" name="password1" placeholder="Enter password" autocomplete="new-password" required="" id="id_password1">   
+                    
+                    
+                </div>
+                <!-- Confirm_password -->
+                <div class="form-group">
+                    
+                    <label for="id_password2">Confirm Password:</label>
+                    <input type="password" class="form-control" name="password2" placeholder="Password Confirmation" autocomplete="new-password" required="" id="id_password2">
+                    <!-- helptext -->
+                    <!-- <br>
+                    <span class="helptext">Enter the same password as before, for verification.</span> -->
+
+                </div>
+                <!-- Submit -->
+                <button type="submit" class="btn btn btn-block btn-success">Create Account</button>
+            </form>
+            <!-- Alternative to log in -->
+            <p class="text-center mt-4">Already have an account? <a href="">Log In</a></p>
+        </div>
+        
+    </div>
+    
+</section>
+{% endblock %}
