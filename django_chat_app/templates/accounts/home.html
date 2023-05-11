@@ -26,15 +26,15 @@
   <!-- Top jumbotron -->
   <div class="jumbotron jumbotron-fluid bg-green">
     <div class="container text-center">
-      <h1 class="display-4">Welcome to The KAFU Admission System</h1>
-      <p class="lead">Experience a seemless transition into an exquisite university</p>
+      <h1 class="display-4">Welcome to The Ezen Partners Chat App</h1>
+      <p class="lead">Enjoy simple, fun, and reliable communication</p>
       {% if user.is_authenticated %} 
         <!-- <a class="btn btn-primary btn-lg" href="" role="button">View your progress</a> -->
-        <a class="btn btn-success btn-lg" href="{%  url 'admissions:personal_details' %}" role="button">Start the application process</a>
+        <a class="btn btn-info btn-lg" href="" role="button">Start Chat</a>
       {% else %}
-        <a class="btn btn-success btn-lg d-inline-block" href="{% url 'login' %}" role="button">Login</a>
+        <a class="btn btn-info btn-lg d-inline-block" href="{% url 'login' %}" role="button">Login</a>
         <p class="d-inline-block mx-2">Or</p>
-        <a class="btn btn-info btn-lg d-inline-block" href="{% url 'register' %}" role="button">Register</a>
+        <a class="btn btn-warning btn-lg d-inline-block" href="{% url 'register' %}" role="button">Register</a>
       {% endif %}
     </div>
   </div>
@@ -46,9 +46,9 @@
       <div class="col mx-auto">
         <div class="card">
           <div class="card-body text-center">
-            <h5 class="card-title">View your progress</h5>
+            <!-- <h5 class="card-title">View your chats</h5> -->
             <p class="card-text">Check here</p>
-            <a href="" class="btn btn-primary">View progress</a>
+            <a href="" class="btn btn-warning">View your chats</a>
           </div>
         </div>
       </div>
