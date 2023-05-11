@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .models import Chat, Message
 from .forms import UserChoiceForm
 
 
 # Start chat
+@login_required
 def create_chat(request):
     if request.method == 'POST':
         form = UserChoiceForm(request.POST)
