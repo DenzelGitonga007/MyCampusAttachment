@@ -8,7 +8,7 @@ from .forms import UserChoiceForm
 @login_required
 def create_chat(request):
     if request.method == 'POST':
-        form = UserChoiceForm(request.POST)
+        form = UserChoiceForm(request.POST, user=request.user)
         if form.is_valid():
             # Get the selected user from the form
             selected_user = form.cleaned_data['user']
@@ -20,6 +20,6 @@ def create_chat(request):
             # Redirect to the chat view for the newly created chat
             return redirect('chat_view', chat.id)
     else:
-        form = UserChoiceForm()
+        form = UserChoiceForm(user=request.user)
     context = {'form': form}
     return render(request, 'chat/create_chat.html', context)
