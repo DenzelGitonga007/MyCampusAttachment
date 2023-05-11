@@ -13,4 +13,8 @@ class Message(models.Model):
 
 class Chat(models.Model):
     users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='chats')
-    messages = models.ManyToManyField(Message)
+    # messages = models.ManyToManyField(Message)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
