@@ -7,14 +7,6 @@ from django.conf import settings
 # Chat and message models
 from django.contrib.auth import get_user_model
 
-
-class Message(models.Model):
-    chat = models.ForeignKey(Chat, on_delete=models.CASCADE, related_name='messages')
-    sender = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='sent_messages')
-    content = models.TextField()
-    timestamp = models.DateTimeField(auto_now_add=True)
-
-
 class Chat(models.Model):
     users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='chats')
     # messages = models.ManyToManyField(Message)
@@ -22,3 +14,9 @@ class Chat(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+
+class Message(models.Model):
+    chat = models.ForeignKey(Chat, on_delete=models.CASCADE, related_name='messages', null=True)
+    sender = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='sent_messages')
+    content = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)

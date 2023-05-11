@@ -1,0 +1,45 @@
+{% extends 'common/base.html' %}
+{% block title %} create chart {% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <h3>Chat Members:</h3>
+        <ul class="list-group">
+            {% for user in chat.users.all %}
+            <li class="list-group-item">{{ user.username }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col-md-8">
+        <h3>Chat Messages:</h3>
+        <div id="chat-box" class="card">
+            <div class="card-body">
+                {% for message in messages %}
+                {% if message.sender == user %}
+                <div class="text-right">
+                    <span class="badge badge-secondary">{{ message.timestamp|date:'SHORT_DATETIME_FORMAT' }}</span>
+                    <p class="alert alert-info">{{ message.content }}</p>
+                </div>
+                {% else %}
+                <div class="text-left">
+                    <span class="badge badge-secondary">{{ message.timestamp|date:'SHORT_DATETIME_FORMAT' }}</span>
+                    <p class="alert alert-success">{{ message.content }}</p>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <br>
+        <form method="post" action="{% url 'send_message' chat.id %}">
+            {% csrf_token %}
+            <div class="input-group">
+                <input type="text" name="message" placeholder="Type your message here" class="form-control">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

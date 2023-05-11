@@ -25,11 +25,6 @@ def create_chat(request):
     return render(request, 'chat/create_chat.html', context)
 
 # Chat view
-
-
-
-
-
 @login_required
 def chat_view(request, chat_id):
     chat = get_object_or_404(Chat, id=chat_id, users=request.user)
