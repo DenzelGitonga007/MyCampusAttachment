@@ -4,10 +4,13 @@
 {% block content %}
 <div class="row">
     <div class="col-md-4">
-        <h3>Chat Members:</h3>
+        <h3>Chat With:</h3>
         <ul class="list-group">
             {% for user in chat.users.all %}
-            <li class="list-group-item">{{ user.username }}</li>
+            <!-- To display only the selected user and not me -->
+                {% if user != request.user %}
+                    <li class="list-group-item">{{ user.username }}</li>
+                {% endif %}
             {% endfor %}
         </ul>
     </div>
@@ -31,12 +34,12 @@
             </div>
         </div>
         <br>
-        <form method="post" action="{% url 'send_message' chat.id %}">
+        <form method="post" action="">
             {% csrf_token %}
             <div class="input-group">
                 <input type="text" name="message" placeholder="Type your message here" class="form-control">
                 <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary">Send</button>
+                    <button type="submit" class="btn btn-info">Send</button>
                 </div>
             </div>
         </form>
