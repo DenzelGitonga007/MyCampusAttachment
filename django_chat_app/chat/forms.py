@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from .models import Message
 
 # Create a new chat
 class UserChoiceForm(forms.Form):
@@ -16,3 +17,15 @@ class UserChoiceForm(forms.Form):
             super().__init__(*args, **kwargs)
             self.fields['user'].empty_label = "Select a user"
             self.fields['user'].widget.attrs.update({'class': 'form-control'})
+
+
+# Chat view
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['content']
+        widgets = {
+            'content': forms.Textarea(attrs={'class': 'form-control'}),
+            'chat': forms.HiddenInput(),
+            'user': forms.HiddenInput(),
+        }
