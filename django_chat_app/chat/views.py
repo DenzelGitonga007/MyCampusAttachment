@@ -42,3 +42,22 @@ def chat_view(request, chat_id):
     context = {'chat': chat, 'messages': messages, 'form': form}
     return render(request, 'chat/chat_view.html', context)
 
+# Sending the message
+@login_required
+def send_message(request, chat_id):
+    chat = Chat.objects.get(id=chat_id)
+
+    if request.method == 'POST':
+        message_content = request.POST['message']
+        sender = request.user
+        message = Message.objects.create(chat=chat, content=message_content, sender=sender)
+
+        # Redirect to chat view after sending
+        return redirect('chat_view', pk=chat.id)
+
+    else:
+        # If the request method is not POST, display an error message
+        messages.error(request, 'Invalid request method.')
+        # return redirect('chat_list')
+        return redirect('chat_view')
+
