@@ -53,7 +53,7 @@ def send_message(request, chat_id):
         message = Message.objects.create(chat=chat, content=message_content, sender=sender)
 
         # Redirect to chat view after sending
-        return redirect('chat_view', pk=chat.id)
+        return redirect('chat_view', chat_id=chat.id)
 
     else:
         # If the request method is not POST, display an error message
