@@ -1,17 +1,38 @@
 {% extends 'common/base.html' %}
 
 {% block content %}
-  <div id="chat">
-    {% for message in messages %}
-      <div class="message {% if message.sender == request.user %}sent{% else %}received{% endif %}">
-        <div class="sender">{{ message.sender.username }}</div>
-        <div class="content">{{ message.content }}</div>
-      </div>
-    {% endfor %}
-  </div>
-  <form method="post" action="{% url 'chat' %}">
-    {% csrf_token %}
-    <input type="text" name="message" placeholder="Type your message here">
-    <button type="submit">Send</button>
-  </form>
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Chat Messages</h3>
+            <div id="chat"class="card">
+                <div class="card-body">
+                    {% for message in messages %}
+                    <!-- For sender messages -->
+                    {% if message.sender == user %}
+                    <div class="text-right">
+                        <span class="badge badge-secondary">{{ message.timestamp|date:'SHORT_DATETIME_FORMAT' }}</span>
+                        <p class="alert alert-info">{{ message.content }}</p>
+                    </div>
+                    {% else %}
+                <div class="text-left">
+                    <span class="badge badge-secondary">{{ message.timestamp|date:'SHORT_DATETIME_FORMAT' }}</span>
+                    <p class="alert alert-success">{{ message.content }}</p>
+                </div>
+                {% endif %}
+                    
+                    
+                    {% endfor %}
+                </div>
+            </div>
+            <form method="post" action="{% url 'chat' %}">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input type="text" name="message" placeholder="Type your message here" class="form-control">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-info">Send</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}
