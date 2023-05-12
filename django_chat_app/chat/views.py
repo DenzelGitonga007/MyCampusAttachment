@@ -73,3 +73,12 @@ def chat_view(request):
     messages = ChatMessage.objects.order_by('timestamp')[:50]
     context = {'messages': messages}
     return render(request, 'chatbot/chat.html', context)
+
+# Generate responses
+def generate_response(request):
+    keywords = ['hi', 'hello', 'hi']
+    # Check if the messsage has any of the keyword
+    if message.lower() in keywords:
+        return "Hello human"
+    else:
+        return "Sorry, I can only understand and respond to greetings now"
