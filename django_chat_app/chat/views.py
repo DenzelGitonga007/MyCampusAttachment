@@ -70,6 +70,6 @@ def chat_view(request):
         message = request.POST['message']
         ChatMessage.objects.create(sender=request.user, content=message)
         #TODO: Generate chat bot response and save
-    messages = ChatMessage.objects.order_by('-timestamp')[:50]
+    messages = ChatMessage.objects.order_by('timestamp')[:50]
     context = {'messages': messages}
     return render(request, 'chatbot/chat.html', context)
