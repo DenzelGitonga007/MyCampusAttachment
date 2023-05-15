@@ -3,14 +3,16 @@
 
 {% block content %}
 <div class="row">
-    
     <div class="col-md-12">
         <h3>Chat Messages:</h3>
         <br>
-        <form method="post" action="">
+        <div id="chat-window">
+            <!-- Existing chat messages will be displayed here -->
+        </div>
+        <form id="chat-form" method="post" action="">
             {% csrf_token %}
             <div class="input-group">
-                <input type="text" name="text" placeholder="Type your message here" class="form-control">
+                <input type="text" name="text" id="chat-input" placeholder="Type your message here" class="form-control">
                 <div class="input-group-append">
                     <button type="submit" class="btn btn-info">Send</button>
                 </div>
@@ -18,4 +20,52 @@
         </form>
     </div>
 </div>
+
+<style>
+    .chat-message {
+        max-width: 70%;
+        margin-bottom: 10px;
+        padding: 8px;
+        border-radius: 5px;
+        clear: both;
+    }
+
+    .user-message {
+        float: right;
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .bot-message {
+        float: left;
+        background-color: lightblue;
+        color: #000;
+    }
+</style>
+
+<script>
+$(document).ready(function() {
+    // Submit chat message on form submit
+    $('#chat-form').submit(function(event) {
+        event.preventDefault();
+        var userMessage = $('#chat-input').val();
+        $('#chat-input').val('');
+        $.ajax({
+            url: '',
+            method: 'POST',
+            data: { 'text': userMessage },
+            success: function(response) {
+                var botMessage = response.response;
+                var chatWindow = $('#chat-window');
+                chatWindow.append('<div class="chat-message user-message"><p>You: ' + userMessage + '</p></div>');
+                chatWindow.append('<div class="chat-message bot-message"><p>Ezen Bot: ' + botMessage + '</p></div>');
+                chatWindow.scrollTop(chatWindow[0].scrollHeight);
+            },
+            error: function(response) {
+                console.log('Error:', response);
+            }
+        });
+    });
+});
+</script>
 {% endblock %}

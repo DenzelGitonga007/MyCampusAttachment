@@ -33,18 +33,14 @@ def chat_view(request):
         # Save user message to database
         user = request.user
         chat = Chat.objects.filter(user=user).first()
-        print(user)
-        print(user_message)
         # Create a chat if none exists
         if not chat:
             chat = Chat.objects.create()
             chat.user.add(request.user)
-        print("Helloooooow {}".format(chat))
         message = Message.objects.create(user=request.user, text=user_message)
-        print("Helloooooow {}".format(message))
         # Save bot response to database
         bot_message = Message.objects.create(user=None, text=bot_response)
-        print("Helloooooow {}".format(bot_message))
+
         # Return bot response as JSON
         return JsonResponse({'response': bot_response})
         
