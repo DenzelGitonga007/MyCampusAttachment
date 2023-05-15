@@ -26,26 +26,23 @@ def get_bot_response(user_message):
 @login_required
 @csrf_exempt
 def chat_view(request):
+    user = request.user
+    chat, created = Chat.objects.get_or_create(user=user)
+
     if request.method == 'POST':
         user_message = request.POST.get('text')
         bot_response = get_bot_response(user_message)
-        
-        # Save user message to database
-        user = request.user
-        chat = Chat.objects.filter(user=user).first()
-        # Create a chat if none exists
-        if not chat:
-            chat = Chat.objects.create()
-            chat.user.add(request.user)
-        message = Message.objects.create(user=request.user, text=user_message)
-        # Save bot response to database
+
+        message = Message.objects.create(user=user, text=user_message)
         bot_message = Message.objects.create(user=None, text=bot_response)
 
-        # Return bot response as JSON
         return JsonResponse({'response': bot_response})
-        
+
     else:
-        return render(request, 'chat/chat_view.html')
+        messages = Message.objects.filter(user=user) | Message.objects.filter(user=None)
+        context = {'messages': messages}
+        return render(request, 'chat/chat_view.html', context)
+
 
 
 
