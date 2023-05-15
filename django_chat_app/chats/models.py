@@ -3,7 +3,6 @@ from django.conf import settings
 
 
 # Create your models here.
-
 # Chats
 class Chat(models.Model):
     user = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='chats')
