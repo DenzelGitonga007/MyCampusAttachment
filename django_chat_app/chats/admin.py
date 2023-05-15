@@ -8,15 +8,15 @@ def username(obj):
     return obj.user.username
 
 
-# Chat
-class ChatAdmin(admin.ModelAdmin):
-    list_display = (username,)
+# # Chat
+# class ChatAdmin(admin.ModelAdmin):
+#     list_display = (username,)
 
 # Messages
 class MessageAdmin(admin.ModelAdmin):
-    list_display = (username, 'chat', 'timestamp', 'text')
+    list_display = (username, 'timestamp', 'text')
 
 
 admin.site.register(Message, MessageAdmin)
-admin.site.register(Chat, ChatAdmin)
+admin.site.register(Chat)
 
