@@ -44,28 +44,45 @@
 </style>
 
 <script>
-$(document).ready(function() {
-    // Submit chat message on form submit
-    $('#chat-form').submit(function(event) {
-        event.preventDefault();
-        var userMessage = $('#chat-input').val();
-        $('#chat-input').val('');
-        $.ajax({
-            url: '',
-            method: 'POST',
-            data: { 'text': userMessage },
-            success: function(response) {
-                var botMessage = response.response;
-                var chatWindow = $('#chat-window');
-                chatWindow.append('<div class="chat-message user-message"><p>You: ' + userMessage + '</p></div>');
-                chatWindow.append('<div class="chat-message bot-message"><p>Ezen Bot: ' + botMessage + '</p></div>');
-                chatWindow.scrollTop(chatWindow[0].scrollHeight);
-            },
-            error: function(response) {
-                console.log('Error:', response);
-            }
+    $(document).ready(function() {
+        // Submit chat message on form submit
+        $('#chat-form').submit(function(event) {
+            event.preventDefault();
+            var userMessage = $('#chat-input').val();
+            $('#chat-input').val('');
+            $.ajax({
+                url: '',
+                method: 'POST',
+                data: { 'text': userMessage },
+                success: function(response) {
+                    var botMessage = response.response;
+                    var chatWindow = $('#chat-window');
+                    chatWindow.append('<div class="chat-message user-message"><p>You: ' + userMessage + '</p></div>');
+
+                    var botMessageDiv = $('<div class="chat-message bot-message"><p>Ezen Bot: </p></div>');
+                    chatWindow.append(botMessageDiv);
+                    chatWindow.scrollTop(chatWindow[0].scrollHeight);
+
+                    var i = 0; // Index to track the current character
+                    var typingSpeed = 50; // Adjust the typing speed as desired
+
+                    var typingInterval = setInterval(function() {
+                        botMessageDiv.find('p').append(botMessage[i]);
+                        chatWindow.scrollTop(chatWindow[0].scrollHeight);
+                        i++;
+                        if (i >= botMessage.length) {
+                            clearInterval(typingInterval);
+                        }
+                    }, typingSpeed);
+                    // Clear the text input field
+                    $('#chat-input').val('');
+                },
+                error: function(response) {
+                    console.log('Error:', response);
+                }
+            });
         });
     });
-});
+
 </script>
 {% endblock %}
