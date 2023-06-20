@@ -11,15 +11,24 @@ def get_bot_response(user_message):
         return "I'm sorry, I didn't receive your message."
     
     responses = {
-        'hi': 'Hello!',
-        'how are you': 'I am doing well, thank you!',
-        'bye': 'Goodbye!',
+        'hi': 'Hello! 👋',
+        'how are you?': 'I am doing well, thank you! 🙏',
+        'okay': 'Alright, I hope I was helpful, thank you.',
+        'thank you': 'My pleasure 🤗',
+        'bye': 'Goodbye! 👋',
+        'nice to meet you': 'Nice to meet you too!',
+        'what are you doing?': 'I am here to assist you and answer your questions. 🤗',
+        'what about you, where are you from?': 'I am an AI bot, I do not have a physical location. 🤖',
+        'ezen financials': 'Ezen Financials is an all-in-one web based Financial ERP for Microfinance, Sacco, Property Management, Property sales, Valuation, CRM, HR & Payroll and Financial Accounting that makes business life easier for Saccos, Microfinance, Property managers, landlords and any other business. 📝✍️',    
+        'tell me about ezen partners': 'Since 2013 we are a Swiss Army knife when it comes to automated and efficient property management solutions that enable landlords and managers of residential and association properties to take complete control of every aspect of their business, including the rent, vacancy and maintenance cycles. It is amazingly great how Ezen streamlines management of the rent cycle with key features such as tenant and lease tracking, full general ledger accounting, automated rent and late fee reminders and on-demand reports. Additionally, rent collection can be automated and property managers can receive online payments via Ezen tenant mobile application 📝✍️.',
+        'where are you located?': 'We are on 7th Floor, Twiga Towers, Muranga Road - Nairobi',
+        
     }
     
     if user_message.lower() in responses:
         return responses[user_message.lower()]
     else:
-        return "I'm sorry, I didn't understand your message."
+        return "I'm sorry, I didn't understand your message. Try asking about Ezen Partners"
 
 
 
