@@ -28,7 +28,7 @@ def get_bot_response(user_message):
     if user_message.lower() in responses:
         return responses[user_message.lower()]
     else:
-        return "I'm sorry, I didn't understand your message. Try asking about Ezen Partners"
+        return "I'm sorry, as an AI model, I am not yet trained to interpret that. Try asking about Ezen Partners"
 
 
 
